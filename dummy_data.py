@@ -8,6 +8,9 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+session.query(User).delete()
+session.query(Item).delete()
+session.query(Category).delete()
 
 # dummy user
 User1 = User(name="Mr. Bogus", email="mr.bogus@bogusland.com",
@@ -16,7 +19,7 @@ session.add(User1)
 session.commit()
 
 # dummy categories and items
-category1 = Category(user_id=1, name="Mythical Places")
+category1 = Category(name="Mythical Places")
 
 session.add(category1)
 session.commit()
@@ -57,7 +60,7 @@ item4 = Item(
 session.add(item4)
 session.commit()
 
-category2 = Category(user_id=1, name="Mythical Creatures")
+category2 = Category(name="Mythical Creatures")
 
 session.add(category2)
 session.commit()
