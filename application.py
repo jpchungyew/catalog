@@ -64,9 +64,9 @@ def showHomepage():
     items = session.query(Item).order_by(Item.id.desc()).limit(5)
 
     if 'username' not in login_session:
-        return render_template('publichomepage.html')
+        return render_template('publichomepage.html', categories=categories)
     else:
-        return render_template('homepage.html')
+        return render_template('homepage.html', categories=categories)
 
 # Show all items in a category
 @app.route('/catalog/<string:category_name>')
@@ -101,8 +101,8 @@ def newItem(category_name):
         session.add(newItem)
         session.commit()
 
-        flash('New %s Item Successfully added' % (newItem.name))
-        return redirect(url_for('showCategoryItems', category_id=category.id))
+        flash('%s successfully added' % (newItem.name))
+        return redirect(url_for('showCategoryItems', category_name=category.name))
     else:
         return render_template('newitem.html', category_id=category.id)
 
@@ -126,10 +126,10 @@ def editItem(item_name):
 
         session.add(item)
         session.commit()
-        flash('Item Successfully Edited')
+        flash('%s successfully edited' % (item.name))
         return redirect(url_for('showCategoryItems', category_name=category.name))
     else:
-        return render_template('edititem.html')
+        return render_template('edititem.html', category=category, item=item)
 
 # Delete an item
 @app.route('/catalog/<string:item_name>/delete', methods=['GET', 'POST'])
@@ -146,10 +146,10 @@ def deleteItem(item_name):
     if request.method == 'POST':
         session.delete(item)
         session.commit()
-        flash('Item Successfully Deleted')
+        flash('%s successfully deleted' % (item.name))
         return redirect(url_for('showCategoryItems', category_name=category.name))
     else:
-        return render_template('deleteitem.html', item=item)
+        return render_template('deleteitem.html', category=category, item=item)
 
 if __name__ == '__main__':
   app.debug = True
