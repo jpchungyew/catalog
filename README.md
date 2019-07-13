@@ -63,3 +63,5 @@ $ python3 -m flask run --host=0.0.0.0 --port=8000
 
 To log out, type ```exit``` at the shell prompt. To turn the virtual machine off (without deleting anything), type ```vagrant halt```. If you do this, you'll need to run vagrant up again before you can log into it.
 
+## References
+There are some areas, especially in the implementation of Google Sign In (login_google.py and google-signin.js) where there was a lot of copy and pasting of code. Most of it was from the course itself, like the code used for the Restaurant Menu Application. Others where from blogs, most notably from the series here https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world.
