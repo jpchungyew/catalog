@@ -24,6 +24,17 @@
     {% endwith %}
 
 </div>
+<div class="row padding-top padding-bottom">
+    <div class="col-md-1"></div>
+    <div class="col-md-11 padding-none">
+        <a href="{{url_for('newItem')}}">
+            <button class="btn btn-default" id="new-item">
+                <span class="glyphicon glyphicon-glass" aria-hidden="true"></span>Add Item
+            </button>
+        </a>
+    </div>
+    <div class="col-md-1"></div>
+</div>
 	{% for category in categories %}
 		<a href = "{{url_for('showCategoryItems', category_name = category.name)}}">
 			<div class="row">

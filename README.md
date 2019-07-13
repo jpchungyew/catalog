@@ -30,6 +30,14 @@ Install Flask-Login
 ```
 $ sudo -H pip3 install flask-login
 ```
+Install OAuth2Client
+```
+$ sudo -H pip3 install oauth2client
+```
+Install requests
+```
+$ sudo -H pip3 install requests
+```
 
 Then clone this repository to your vagrant directory.
 ```
@@ -40,17 +48,17 @@ Type ```vagrant ssh``` to log into the virtual machine. This will log your termi
 
 Navigate to the shared vagrant directory by typing ```cd /vagrant```.
 
-Navigate into catalog directory, where the repository was downloaded to.
-
-In the prompt, type in the following to get the application up and accessible on localhost:8000:
-```
-$ export FLASK_APP=application.py
-$ python -m flask run --host=0.0.0.0 --port=8000
-```
+Navigate into catalog directory, where the repository was downloaded to ```cd catalog```.
 
 To seed the database with dummy data, run the following:
 ```
-$ python dummy_data.py
+$ python3 dummy_data.py
+```
+
+In the prompt, type in the following to get the application up and accessible on localhost:8000:
+```
+$ export FLASK_APP=catalog.py
+$ python3 -m flask run --host=0.0.0.0 --port=8000
 ```
 
 To log out, type ```exit``` at the shell prompt. To turn the virtual machine off (without deleting anything), type ```vagrant halt```. If you do this, you'll need to run vagrant up again before you can log into it.
