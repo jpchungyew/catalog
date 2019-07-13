@@ -22,6 +22,19 @@
                 <label for="description">Description:</label>
                 <textarea class="form-control" maxlength="250" rows="3" name="description"></textarea>
 
+                <label for="category">Category:</label>
+                <br>
+                <select name="category">
+                    {% for category in categories %}
+                        {% if category.id == category_id %}
+                            <option value="{{category_id}}" selected>{{category.name}}</option>
+                        {% else %}
+                            <option value="{{category.id}}">{{category.name}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <p></p>
+
                 <button type="submit" class="btn btn-default" id="submit" type="submit">
                 <span class="glyphicon glyphicon-glass" aria-hidden="true"></span>Create</button>
             </div>

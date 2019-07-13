@@ -7,7 +7,7 @@
 <div class="row banner menu">
     <div class="col-md-1"></div>
     <div class="col-md-11 padding-none">
-        <h1>Edit Item</h1>
+        <h1>{{item.name}}</h1>
     </div>
     <div class="col-md-1"></div>
 </div>
@@ -16,16 +16,12 @@
     <div class="col-md-10">
         <form action="#" method = "post">
             <div class="form-group">
-                <label for="name">Name:</label>
-                <input type ="text" maxlength="100" class="form-control" name="name" value="{{item.name}}">
-
                 <label for="description">Description:</label>
-                <textarea class="form-control" maxlength="250" rows="3" name="description">{{item.description}}</textarea>
+                <p>{{item.description}}</p>
+                <p><span class="badge badge-info">{{category.name}}</span></p>
 
-                <button type="submit" class="btn btn-default" id="submit" type="submit">
-                    Save</button>
                 <a href = "{{url_for('showCategoryItems', category_name = category.name)}}">
-                    Cancel
+                    back to all {{category.name}} items
                 </a>
             </div>
         </form>

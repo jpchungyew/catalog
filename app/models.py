@@ -1,21 +1,17 @@
-import os
-import sys
-from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
-from sqlalchemy.ext.declarative import declarative_base
+#!/usr/bin/env python3
+from app import db, login
 from sqlalchemy.orm import relationship
-from sqlalchemy import create_engine
 from sqlalchemy.orm import object_session
 from sqlalchemy import select, func
- 
-Base = declarative_base()
+from flask_login import UserMixin
 
-class User(Base):
+class User(UserMixin, db.Model):
     __tablename__ = 'user'
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
-    email = Column(String(250), nullable=False)
-    picture = Column(String(250))
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(250), nullable=False)
+    email = db.Column(db.String(250), nullable=False)
+    picture = db.Column(db.String(250))
 
     @property
     def serialize(self):
@@ -26,11 +22,15 @@ class User(Base):
             'picture' : self.picture
         }
 
-class Category(Base):
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
+
+class Category(db.Model):
     __tablename__ = 'category'
    
-    id = Column(Integer, autoincrement=True)
-    name = Column(String(250), primary_key=True)
+    id = db.Column(db.Integer, autoincrement=True)
+    name = db.Column(db.String(250), primary_key=True)
 
     @property
     def item_count(self):
@@ -47,15 +47,15 @@ class Category(Base):
             'name'         : self.name
         } 
 
-class Item(Base):
+class Item(db.Model):
     __tablename__ = 'item'
 
-    id = Column(Integer, autoincrement=True)
-    name =Column(String(80), primary_key=True)
-    description = Column(String(250))
-    category_id = Column(Integer,ForeignKey('category.id'))
+    id = db.Column(db.Integer, autoincrement=True)
+    name = db.Column(db.String(80), primary_key=True)
+    description = db.Column(db.String(250))
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     category = relationship(Category)
-    user_id = Column(Integer,ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = relationship(User)
 
     @property
@@ -65,6 +65,3 @@ class Item(Base):
             'name' : self.name,
             'description' : self.description
         }
-
-engine = create_engine('sqlite:///catalog.db')
-Base.metadata.create_all(engine)
