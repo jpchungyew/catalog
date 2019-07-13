@@ -23,10 +23,7 @@ def showCategoryItems(category_name):
     category = db.session.query(Category).filter_by(name=category_name).one()
     items = db.session.query(Item).filter_by(category_id=category.id).all()
     
-    if not current_user.is_authenticated:
-        return render_template('publicitems.html', category=category, items=items)
-    else:
-        return render_template('items.html', category=category, items=items)
+    return render_template('items.html', category=category, items=items)
 
 
 # Create a new item
@@ -63,13 +60,14 @@ def newItem(category_name):
 # View an item
 @app.route('/catalog/<string:category_name>/<string:item_name>', methods=['GET', 'POST'])
 def viewItem(category_name,item_name):
-    if not current_user.is_authenticated:
-        return render_template('loginrequired.html')
 
     category = db.session.query(Category).filter_by(name=category_name).one()
     item = db.session.query(Item).filter_by(name=item_name).one()
 
-    return render_template('item.html', category=category, item=item)
+    if not current_user.is_authenticated:
+        return render_template('publicitem.html', category=category, item=item)
+    else:
+        return render_template('item.html', category=category, item=item)
 
 # Edit an item
 @app.route('/catalog/<string:item_name>/edit', methods=['GET', 'POST'])
