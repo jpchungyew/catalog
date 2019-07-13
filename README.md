@@ -8,7 +8,30 @@ Follow these [instructions provided by Udacity](https://www.google.com/url?q=htt
 
 Using the terminal, change directory to /vagrant (cd /vagrant), then type ```vagrant up``` to launch your virtual machine.
 
-Once it is up and running, clone this repository to your vagrant directory.
+Once it is up and running, install the following if they don't exist yet.
+
+Install python3
+```
+$ sudo -H apt-get install python3
+```
+Install Flask
+```
+$ sudo -H pip3 install flask
+```
+Install SQLAlchemy
+```
+$ sudo -H pip3 install sqlalchemy
+```
+Install Flask SQLAlchemy
+```
+$ sudo -H pip3 install flask-sqlalchemy
+```
+Install Flask-Login
+```
+$ sudo -H pip3 install flask-login
+```
+
+Then clone this repository to your vagrant directory.
 ```
 $ git clone https://github.com/jpchungyew/item-catalog-project.git
 ```
