@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 {% block content %}
-{% include "header.html" %}
+{% include "publicheader.html" %}
 <div class="row divider green">
     <div class="col-md-12"></div>
 </div>
@@ -20,11 +20,6 @@
                 <p>{{item.description}}</p>
                 <p><span class="badge badge-info">{{category.name}}</span></p>
 
-                {% if current_user.id == item.user_id %}
-                <a href="{{url_for('editItem', item_name = item.name ) }}">Edit</a> | 
-                <a href="{{url_for('deleteItem', item_name = item.name ) }}">Delete</a>
-                {% endif %}
-                <br>
                 <a href = "{{url_for('showCategoryItems', category_name = category.name)}}">
                     back to all {{category.name}} items
                 </a>

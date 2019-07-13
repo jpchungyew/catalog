@@ -43,22 +43,20 @@
     </div>
     <div class="col-md-1"></div>
 </div>
-	{% if items != [] %}	
-		<div class="row">
-			<div class="col-md-1"></div>
-			<div class="col-md-10">
-                {% for i in items %}
-                    <div class="item">
-                        <h3>{{i.name}}</h3>
-                        <p>{{i.description}}</p>
-                        {% if current_user.id == i.user_id %}
-                            <a href="{{url_for('editItem', item_name = i.name ) }}">Edit</a> | 
-                            <a href="{{url_for('deleteItem', item_name = i.name ) }}">Delete</a>
-                        {% endif %}
+	{% if items != [] %}
+        {% for i in items %}
+            <a href = "{{url_for('viewItem', category_name = category.name, item_name = i.name)}}">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10 list">
+                        <div class="item">
+                            <h3>{{i.name}}</h3>
+                            <p>{{i.description}}</p>
+                        </div>
                     </div>
-                {% endfor %}
-			</div>
-			<div class="col-md-1"></div>
-		</div>
+                    <div class="col-md-1"></div>
+                </div>
+            </a>
+        {% endfor %}
 	{% endif %}
 {% endblock %}
