@@ -2,13 +2,16 @@
 from sqlalchemy import create_engine
 from config import Config
 from sqlalchemy.orm import sessionmaker
-from catalogapp import app, db 
+from catalogapp import app, db
 from flask import jsonify
 from catalogapp.models import User, Category, Item
 
-engine = create_engine(Config.SQLALCHEMY_DATABASE_URI, connect_args={'check_same_thread': False})
+engine = create_engine(
+    Config.SQLALCHEMY_DATABASE_URI,
+    connect_args={'check_same_thread': False})
 
 Session = sessionmaker(bind=engine)
+
 
 # Catalog JSON APIs
 @app.route('/catalog/JSON')
@@ -17,6 +20,7 @@ def catalogJSON():
 
     categories = session.query(Category).all()
     return jsonify(categories=[c.serialize for c in categories])
+
 
 @app.route('/catalog/<string:category_name>/JSON')
 @app.route('/catalog/<string:category_name>/items/JSON')
@@ -29,6 +33,7 @@ def categoryItemsJSON(category_name):
 
     return jsonify(items=[i.serialize for i in items])
 
+
 @app.route('/catalog/<string:category_name>/<string:item_name>/JSON')
 def itemJSON(category_name, item_name):
     session = Session()
@@ -39,6 +44,7 @@ def itemJSON(category_name, item_name):
         name=item_name).one()
 
     return jsonify(item=item.serialize)
+
 
 @app.route('/catalog/users/JSON')
 def usersJSON():

@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 from catalogapp import db
 from config import Config
-from sqlalchemy import select, func, Column, ForeignKey, Integer, String, UniqueConstraint, create_engine
+from sqlalchemy import select, func, create_engine
+from sqlalchemy import Column, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import relationship, object_session
 from sqlalchemy.ext.declarative import declarative_base
 
 from flask_login import UserMixin
 
 Base = declarative_base()
+
 
 class User(Base):
     __tablename__ = 'user'
@@ -20,19 +22,16 @@ class User(Base):
     @property
     def serialize(self):
         return {
-            'id' : self.id,
-            'name' : self.name,
-            'email' : self.email,
-            'picture' : self.picture
+            'id': self.id,
+            'name': self.name,
+            'email': self.email,
+            'picture': self.picture
         }
 
-# @login.user_loader
-# def load_user(id):
-#     return User.query.get(int(id))
 
 class Category(Base):
     __tablename__ = 'category'
-   
+
     id = Column(Integer, primary_key=True)
     name = Column(String(250))
     __table_args__ = (UniqueConstraint('name', name='_category_name_uc'),)
@@ -41,16 +40,17 @@ class Category(Base):
     def item_count(self):
         return object_session(self).\
             scalar(
-                select([func.count(Item.id)]).\
-                    where(Item.category_id==self.id)
+                select([func.count(Item.id)]).
+                where(Item.category_id == self.id)
             )
 
     @property
     def serialize(self):
         return {
-            'id' : self.id,
-            'name' : self.name
-        } 
+            'id': self.id,
+            'name': self.name
+        }
+
 
 class Item(Base):
     __tablename__ = 'item'
@@ -67,9 +67,9 @@ class Item(Base):
     @property
     def serialize(self):
         return {
-            'id' : self.id,
-            'name' : self.name,
-            'description' : self.description
+            'id': self.id,
+            'name': self.name,
+            'description': self.description
         }
 
 engine = create_engine(Config.SQLALCHEMY_DATABASE_URI)

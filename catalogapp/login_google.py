@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 from flask import request, make_response, session as login_session
 from oauth2client.client import flow_from_clientsecrets, FlowExchangeError
+from config import Config
 
 import requests, httplib2, json
 
 CLIENT_ID = json.loads(
-    open('client_secret.json', 'r').read())['web']['client_id']
+    open(Config.SECRET_KEY, 'r').read())['web']['client_id']
 
 def gconnect(request):
     request.get_data()
@@ -13,7 +14,7 @@ def gconnect(request):
 
     try:
         # Upgrade the authorization code into a credentials object
-        oauth_flow = flow_from_clientsecrets('client_secret.json', scope='')
+        oauth_flow = flow_from_clientsecrets(Config.SECRET_KEY, scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
