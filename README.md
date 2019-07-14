@@ -14,6 +14,10 @@ Install python3
 ```
 $ sudo -H apt-get install python3
 ```
+Install pip3
+```
+sudo apt install python3-pip
+```
 Install Flask
 ```
 $ sudo -H pip3 install flask

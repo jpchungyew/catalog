@@ -1,29 +1,24 @@
 #!/usr/bin/env python3
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Category, Item, User
+from app import app, db
+from app.models import User, Category, Item
 
-engine = create_engine('sqlite:///catalog.db')
-Base.metadata.bind = engine
-
-DBSession = sessionmaker(bind=engine)
-session = DBSession()
-
-session.query(User).delete()
-session.query(Item).delete()
-session.query(Category).delete()
+db.session.query(User).delete()
+db.session.query(Item).delete()
+db.session.query(Category).delete()
 
 # dummy user
 User1 = User(name="Mr. Bogus", email="mr.bogus@bogusland.com",
              picture='https://en.wikipedia.org/wiki/File:Bogus.jpg')
-session.add(User1)
-session.commit()
+db.session.add(User1)
+db.session.commit()
 
 # dummy categories and items
 category1 = Category(name="Mythical Places")
 
-session.add(category1)
-session.commit()
+db.session.add(category1)
+db.session.commit()
 
 item1 = Item(
     user_id=1,
@@ -31,8 +26,8 @@ item1 = Item(
     description="A legendary city at Earth's core.",
     category=category1)
 
-session.add(item1)
-session.commit()
+db.session.add(item1)
+db.session.commit()
 
 item2 = Item(
     user_id=1,
@@ -40,8 +35,8 @@ item2 = Item(
     description="The legendary (and almost archetypal) lost continent that was supposed to have sunk into the Atlantic Ocean.",
     category=category1)
 
-session.add(item2)
-session.commit()
+db.session.add(item2)
+db.session.commit()
 
 item3 = Item(
     user_id=1,
@@ -49,8 +44,8 @@ item3 = Item(
     description="Rumored city of gold in South America.",
     category=category1)
 
-session.add(item3)
-session.commit()
+db.session.add(item3)
+db.session.commit()
 
 item4 = Item(
     user_id=1,
@@ -58,13 +53,13 @@ item4 = Item(
     description="A mystical, harmonious valley enclosed in the western end of the Kunlun Mountains.",
     category=category1)
 
-session.add(item4)
-session.commit()
+db.session.add(item4)
+db.session.commit()
 
 category2 = Category(name="Mythical Creatures")
 
-session.add(category2)
-session.commit()
+db.session.add(category2)
+db.session.commit()
 
 item5 = Item(
     user_id=1,
@@ -72,8 +67,8 @@ item5 = Item(
     description="A creature with a head and torso of a human and the body of a horse.",
     category=category2)
 
-session.add(item5)
-session.commit()
+db.session.add(item5)
+db.session.commit()
 
 item6 = Item(
     user_id=1,
@@ -81,7 +76,7 @@ item6 = Item(
     description="A 13-foot-tall moose-like... thing",
     category=category2)
 
-session.add(item6)
-session.commit()
+db.session.add(item6)
+db.session.commit()
 
 print('added dummy items!')
