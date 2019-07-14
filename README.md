@@ -54,14 +54,16 @@ Navigate to the shared vagrant directory by typing ```cd /vagrant```.
 
 Navigate into catalog directory, where the repository was downloaded to ```cd catalog```.
 
-To seed the database with dummy data, run the following:
+## DB setup
+To create and seed the database with dummy data, run the following:
 ```
-$ python3 dummy_data.py
+$ python3 create_catalog.py
 ```
 
+## App launch
 In the prompt, type in the following to get the application up and accessible on localhost:8000:
 ```
-$ export FLASK_APP=catalog.py
+$ export FLASK_APP=catalogapp.py
 $ python3 -m flask run --host=0.0.0.0 --port=8000
 ```
 
