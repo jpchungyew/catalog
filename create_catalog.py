@@ -3,23 +3,28 @@ from config import Config
 from catalogapp.models import Base, User, Category, Item
 from sqlalchemy.orm import sessionmaker
 
-engine = create_engine(Config.SQLALCHEMY_DATABASE_URI, connect_args={'check_same_thread': False})
+engine = create_engine(
+    Config.SQLALCHEMY_DATABASE_URI,
+    connect_args={'check_same_thread': False})
+
 Base.metadata.bind = engine
 
 Session = sessionmaker(bind=engine)
 session = Session()
+
 
 def empty_database():
     session.query(User).delete()
     session.query(Item).delete()
     session.query(Category).delete()
 
+
 def add_dummy_data():
-    
 
     # dummy user
     User1 = User(name="Mr. Bogus", email="mr.bogus@bogusland.com",
-                picture='https://en.wikipedia.org/wiki/File:Bogus.jpg')
+                 picture='https://en.wikipedia.org/wiki/File:Bogus.jpg')
+
     session.add(User1)
     session.commit()
 
@@ -41,7 +46,8 @@ def add_dummy_data():
     item2 = Item(
         user_id=1,
         name="Atlantis",
-        description="The legendary (and almost archetypal) lost continent that was supposed to have sunk into the Atlantic Ocean.",
+        description="The legendary (and almost archetypal) lost continent\
+             that was supposed to have sunk into the Atlantic Ocean.",
         category=category1)
 
     session.add(item2)
@@ -59,7 +65,8 @@ def add_dummy_data():
     item4 = Item(
         user_id=1,
         name="Shangri-La",
-        description="A mystical, harmonious valley enclosed in the western end of the Kunlun Mountains.",
+        description="A mystical, harmonious valley enclosed in the western\
+             end of the Kunlun Mountains.",
         category=category1)
 
     session.add(item4)
@@ -73,7 +80,8 @@ def add_dummy_data():
     item5 = Item(
         user_id=1,
         name="Centaur",
-        description="A creature with a head and torso of a human and the body of a horse.",
+        description="A creature with a head and torso of a human and the\
+             body of a horse.",
         category=category2)
 
     session.add(item5)
